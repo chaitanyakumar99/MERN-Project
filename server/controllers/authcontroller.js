@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import userMOdel from '../models/usermodel.js';
 import transporter from '../config/nodemailer.js';
 
+//user register
+
 export const register = async (req, resp) => {
 
     const { name, email, password } = req.body;
@@ -48,18 +50,12 @@ export const register = async (req, resp) => {
         var response = await transporter.sendMail(mailOptions)
         console.log(response);
 
-
-
         return resp.json({ success: true });
-
-
 
     } catch (error) {
 
         resp.json({ success: false, message: error.message })
     }
-
-
 }
 
 
@@ -144,14 +140,14 @@ export const sendVerifyOtp = async (req, resp) => {
         if (user.isAccountVerified) {
             return resp.json({ success: false, message: "Account Already Verified" })
         }
-
+ 
         //to generate the otp we use math randum function  
 
         //Math.floar that will remove the decimal points ex.86.43 =>86
         //3 digit number should be converted as a string
 
 
-        const otp = String(Math.floor(100000 + Math.random() * 900000))
+        const otp = String(Math.floor(100000 + Math.random() * 900000));
 
         user.verifyOtp = otp;
         user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
@@ -177,26 +173,28 @@ export const sendVerifyOtp = async (req, resp) => {
     }
 }
 
+//Verify the Email using the OTP
+
 export const verifyEmail = async (req, resp) => {
     const { userId, otp } = req.body;
 
     //if the data is not available
     if (!userId || !otp) {
-        return resp.json({ success: false, message: "Missing Details" })
-    }
+        return resp.json({ success: false, message: "Missing Details" });
+    } 
     try {
         const user = await userMOdel.findById(userId);
         if (!user) {
-            return resp.json({ success: false, message: 'user not found' })
+            return resp.json({ success: false, message: 'user not found' });
         }
         if (user.verifyOtp === '' || user.verifyOtp !== otp) {
-            return resp.json({success: false, message: 'Invalid OTP'})
+            return resp.json({ success: false, message: 'Invalid OTP' });
         }
 
         // if the otp is valid then,will check the expirey date
 
         if (user.verifyOtpExpireAt < Date.now()) {
-            return resp.json({ success: false, message: 'OTP Expired' })
+            return resp.json({ success: false, message: 'OTP Expired' });
         }
 
         user.isAccountVerified = true;
@@ -209,5 +207,11 @@ export const verifyEmail = async (req, resp) => {
     } catch (error) {
         return resp.json({ success: false, message: error.message })
     }
+
+}
+
+// check if user is authenticated
+
+export const isAuthenticated=async(req,rsp)=>{
 
 }
