@@ -140,7 +140,7 @@ export const sendVerifyOtp = async (req, resp) => {
         if (user.isAccountVerified) {
             return resp.json({ success: false, message: "Account Already Verified" })
         }
- 
+
         //to generate the otp we use math randum function  
 
         //Math.floar that will remove the decimal points ex.86.43 =>86
@@ -181,7 +181,7 @@ export const verifyEmail = async (req, resp) => {
     //if the data is not available
     if (!userId || !otp) {
         return resp.json({ success: false, message: "Missing Details" });
-    } 
+    }
     try {
         const user = await userMOdel.findById(userId);
         if (!user) {
@@ -212,6 +212,17 @@ export const verifyEmail = async (req, resp) => {
 
 // check if user is authenticated
 
-export const isAuthenticated=async(req,rsp)=>{
+export const isAuthenticated = async (req, resp) => {
+    try {
+        return resp.json({ success: true })
+    } catch (error) {
+        resp.json({ success: false, message: error.message })
+    }
 
+}
+
+// Send Password Reset OTP
+
+export const sendResetOtp = async (req, resp) => {
+    const { email } = req.body
 }
