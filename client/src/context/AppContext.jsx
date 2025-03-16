@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext,useState } from "react";
 
 export const AppContext = createContext()
 
@@ -6,7 +6,7 @@ export const AppContextProvider = (props) => {
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [isLoggedin, setIsLoggedin] = useState(false)
-    const [userData, setUserData] = useState(false)
+    const [userData, setUserData] = useState(null)
 
     const value = {
         backendUrl,
@@ -16,7 +16,7 @@ export const AppContextProvider = (props) => {
 
     return (
         < AppContext.Provider value={value}>
-            {props.childern}
+            {props.children}
         </AppContext.Provider>
     )
 }
