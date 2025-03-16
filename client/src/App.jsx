@@ -8,7 +8,7 @@ import ResetPassword from './pages/ResetPassword'
 const App = () => {
   return (
     <div>
-      <Routes>
+      <Routes> 
         <Route  path='/' element={<Home/>}/>
         <Route  path='/login' element={<Login/>}/>
         <Route  path='/email-verify' element={<EmailVerify/>}/>
