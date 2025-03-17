@@ -10,9 +10,13 @@ const app=express();
 const port =process.env.PORT || 8080
 connectDB()
 
+//frontend URL
+const allowedOrigins = ['http://localhost:5173']
+
 app.use(express.json());
 app.use(cookieparser())
-app.use(cors({credentials:true}))
+app.use(cors({ origin: allowedOrigins, credentials:true}))
+// app.use(cors());
 
 
 //API Endpoints
@@ -23,3 +27,4 @@ app.use('/api/auth',authRouter)
 app.use('/api/user',userRouter)
 
 app.listen(port,()=>console.log(`Server Started on PORT:${port} `));
+

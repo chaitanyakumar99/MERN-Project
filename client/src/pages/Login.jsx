@@ -16,24 +16,24 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const onSubmitHandeler = async () => {
+  const onSubmitHandeler = async (e) => {
     try {
       e.preventDefault();
-
-
-
       axios.defaults.withCredentials = true    // to send cookies
 
       if (state === 'Sign Up') {
         const { data } = await axios.post(backendUrl + '/api/auth/register', { name, email, password })
+
         if (data.success) {
           setIsLoggedin(true)
           navigate('/')
         } else {
           toast.error(data.message)
         }
+
       } else {
         const { data } = await axios.post(backendUrl + '/api/auth/login', { email, password })
+
         if (data.success) {
           setIsLoggedin(true)
           navigate('/')
@@ -43,7 +43,7 @@ const Login = () => {
 
       }
     } catch (error) {
-      toast.error(data.message)
+      toast.error(error.message)
     }
   }
 
@@ -91,8 +91,6 @@ const Login = () => {
         {state === 'Sign Up' ? (<p className='text-gray-400 text-center text-xs mt-4'>Already have an account?{' '} <span onClick={() => setState('Login')} className='text-blue-400 cursor-pointer underline'>Login here</span> </p>) :
           (<p className='text-gray-400 text-center text-xs mt-4'>Don't have an account?{' '} <span onClick={() => setState('Sign Up')} className='text-blue-400 cursor-pointer underline'>Sign up</span> </p>)
         }
-
-
 
       </div>
 
