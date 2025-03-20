@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userMOdel from '../models/usermodel.js';
 import transporter from '../config/nodemailer.js';
+import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE } from '../config/emailTemplates.js';
 
 //user register
 
@@ -158,7 +159,8 @@ export const sendVerifyOtp = async (req, resp) => {
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Account Verification OTP',
-            text: ` Your OTP is  ${otp}. Verify your account using this OTP.`
+            // text: ` Your OTP is  ${otp}. Verify your account using this OTP.`,
+            html: EMAIL_VERIFY_TEMPLATE.replace("{{otp}}", otp).replace("{{email}}", user.email)
         }
 
         //send the email
@@ -248,7 +250,8 @@ export const sendResetOtp = async (req, resp) => {
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Password Reset OTP',
-            text: ` Your OTP is resetting your password is ${otp}.  Use this OTP to proceed with resetting your password.`
+            // text: ` Your OTP is resetting your password is ${otp}.  Use this OTP to proceed with resetting your password.`,
+            html: PASSWORD_RESET_TEMPLATE.replace("{{otp}}", otp).replace("{{email}}", user.email)
         }
 
         await transporter.sendMail(mailOptions);
@@ -292,7 +295,7 @@ export const resetPassword = async (req, resp) => {
 
         await user.save();
 
-        return resp.json({success:true, message:'password has been reset successfully'})
+        return resp.json({ success: true, message: 'password has been reset successfully' })
 
     } catch (error) {
         return resp.json({ success: false, message: error.message });
