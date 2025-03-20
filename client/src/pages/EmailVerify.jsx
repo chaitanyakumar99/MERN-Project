@@ -26,7 +26,6 @@ const EmailVerify = () => {
         }
     }
 
-
     //copy the otp 
 
     const handlePaste = (e) => {
