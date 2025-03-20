@@ -204,7 +204,7 @@ export const verifyEmail = async (req, resp) => {
         user.verifyOtpExpireAt = 0;
 
         await user.save();
-        return resp.json({ success: true, message: 'Email Verified Successfully' })
+        return resp.json({ success: true, message: 'Email Verified Successfully'})
 
     } catch (error) {
         return resp.json({ success: false, message: error.message })
@@ -242,6 +242,7 @@ export const sendResetOtp = async (req, resp) => {
         const otp = String(Math.floor(100000 + Math.random() * 900000));
 
         user.resetOtp = otp;
+
         user.resetOtpExpireAt = Date.now() + 15 * 60 * 1000
 
         await user.save();
