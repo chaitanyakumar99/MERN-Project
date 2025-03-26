@@ -112,7 +112,6 @@ export const login = async (req, resp) => {
     }
 }
 
-
 //user logout
 
 export const logout = async (req, resp) => {
