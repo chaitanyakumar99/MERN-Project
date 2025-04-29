@@ -128,6 +128,7 @@ export const logout = async (req, resp) => {
     }
 }
 
+
 // Send Verification OTP to the User's Email
 
 export const sendVerifyOtp = async (req, resp) => {
