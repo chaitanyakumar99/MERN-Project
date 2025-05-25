@@ -20,7 +20,6 @@ app.use(cors({ origin: allowedOrigins, credentials:true}))
 
 //API Endpoints
 
-
 app.get('/',(req,resp)=>resp.send("API Working fine...!"));
 app.use('/api/auth',authRouter)
 app.use('/api/user',userRouter)
