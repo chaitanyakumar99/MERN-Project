@@ -27,7 +27,7 @@ const EmailVerify = () => {
         }
     }
 
-    //copy the otp 
+    //copy the  can be del otp 
 
     const handlePaste = (e) => {
 
@@ -86,5 +86,6 @@ const EmailVerify = () => {
         </div>
     )
 }
+
 
 export default EmailVerify
