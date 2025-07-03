@@ -26,3 +26,11 @@ app.use('/api/user',userRouter)
 
 app.listen(port,()=>console.log(`Server Started on PORT:${port} `));
 
+
+
+
+
+
+
+
+
