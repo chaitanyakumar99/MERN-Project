@@ -14,7 +14,6 @@ export const AppContextProvider = (props) => {
     const [isLoggedin, setIsLoggedin] = useState(false)
     const [userData, setUserData] = useState(false)
 
-    
     // get auth/state it will check the authetication status weather the user is authenticate are not
 
     const getAuthState = async () => {
