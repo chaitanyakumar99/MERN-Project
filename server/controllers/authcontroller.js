@@ -8,7 +8,7 @@ import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE } from '../config/emailT
 
 export const register = async (req, resp) => {
 
-    const { name, email, password } = req.body;
+    const { name, email, password,phoneNumber } = req.body;
 
     if (!name || !email || !password) {
         return resp.json({ success: false, message: "Missing Details" })
@@ -24,7 +24,7 @@ export const register = async (req, resp) => {
 
         //user created here
 
-        const user = new userMOdel({ name, email, password: hashPassword });
+        const user = new userMOdel({ name, email, password: hashPassword ,phoneNumber});
         await user.save();
 
         //auth token:-

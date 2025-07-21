@@ -9,12 +9,13 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const { backendUrl, setIsLoggedin ,getUserData } = useContext(AppContext)
+  const { backendUrl, setIsLoggedin, getUserData } = useContext(AppContext)
 
   const [state, setState] = useState('Sign Up')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const onSubmitHandeler = async (e) => {
     try {
@@ -22,12 +23,13 @@ const Login = () => {
       axios.defaults.withCredentials = true    // to send cookies
 
       if (state === 'Sign Up') {
+
         const { data } = await axios.post(backendUrl + '/api/auth/register', { name, email, password })
 
         if (data.success) {
           setIsLoggedin(true)
           getUserData()
-          navigate('/') 
+          navigate('/')
         } else {
           toast.error(data.message)
         }
@@ -61,10 +63,12 @@ const Login = () => {
 
         <p className='text-center text-sm mb-6'>{state === 'Sign Up' ? 'Create your account' : 'Login to your account!'}</p>
 
-        {/* Form */}
 
         <form onSubmit={onSubmitHandeler}>
           {state === 'Sign Up' && (
+
+            // Full Name
+
             <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
               <img src={assets.person_icon} alt="" />
               <input
@@ -73,12 +77,34 @@ const Login = () => {
             </div>
           )}
 
+          {/* Phone Number */}
+
+          {/* <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
+            <img src={assets.phone_icon || assets.person_icon} alt="" />
+
+            <input
+              onChange={e => setPhoneNumber(e.target.value)}
+              value={phoneNumber}
+              className='bg-transparent outline-none'
+              type="tel"
+              placeholder="Phone Number"
+              required
+              pattern="[0-9]{10}"
+              maxLength={10}
+              title="Enter a valid 10-digit phone number"
+            />
+          </div> */}
+
+          {/* Email */}
+
           <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
             <img src={assets.mail_icon} alt="" />
             <input
               onChange={e => setEmail(e.target.value)} value={email}
               className='bg-transparent outline-none' type="email" placeholder="Email id" required />
           </div>
+
+          {/* password */}
 
           <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
             <img src={assets.lock_icon} alt="" />
