@@ -76,7 +76,7 @@ const Login = () => {
                 className='bg-transparent outline-none' type="text" placeholder="Full Name" required />
             </div>
           )}
-
+          
           {/* Phone Number */}
 
           {/* <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
